@@ -26,7 +26,7 @@ section {
 
 input {
   text-align: center;
-  max-width: 2.5em;
+  /* max-width: 2.5em; */
 }
 
 button {
