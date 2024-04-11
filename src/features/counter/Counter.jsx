@@ -2,6 +2,8 @@ import React from 'react'
 import { increament, decreament, increamentByAmount, reset } from './counterSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from "react";
+import '../../index.css'
+
 
 export default function Counter() {
     const counter = useSelector((state) => state.counter.count)
