@@ -25,12 +25,13 @@ const postSlice = createSlice({
                 // as a result we can write js code like this 
                 state.push(action.payload)
             },
-            prepare(title, content) {
+            prepare(title, content,userId) {
                 return {
                     payload: {
                         id: nanoid(),
                         title,
-                        content
+                        content,
+                        userId
                     }
                 }
             }

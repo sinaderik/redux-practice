@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectAllPosts } from './postsSlice'
+import PostAuthor from './PostAuthor'
 import "./posts.css"
 
 export default function Posts() {
@@ -14,6 +15,7 @@ export default function Posts() {
     <article key={post.id}>
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
+      <PostAuthor userId={post.userId} />
     </article>
   ))
 
