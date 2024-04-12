@@ -7,6 +7,6 @@ export default function PostAuthor({userId}) {
     const author = users.find(user => user.id === userId)
     
     return (
-        <span>{author ? author.name : 'unknown author'}</span>
+        <h5>Author: {author ? author.name : 'unknown author'}</h5>
     )
 }

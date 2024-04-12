@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectAllPosts } from './postsSlice'
 import PostAuthor from './PostAuthor'
+import TimeAgo from './TimeAgo'
 import "./posts.css"
 
 export default function Posts() {
@@ -16,6 +17,7 @@ export default function Posts() {
       <h3>{post.title}</h3>
       <p>{post.content.substring(0, 100)}</p>
       <PostAuthor userId={post.userId} />
+      <TimeAgo timeStamp={post.date} />
     </article>
   ))
 
