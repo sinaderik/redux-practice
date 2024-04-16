@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectAllPosts } from './postsSlice'
+import { useSelector,useDispatch } from 'react-redux'
+import { selectAllPosts,getPostError,getPostStatus,fetchPosts } from './postsSlice'
 import PostAuthor from './PostAuthor'
 import TimeAgo from './TimeAgo'
-import "./posts.css"
 import ReactionButtons from './ReactionButtons'
+import "./posts.css"
 
 export default function Posts() {
   // in this way if shape of the state changes we should change this line of code in every component that its used
@@ -24,7 +24,7 @@ export default function Posts() {
       <ReactionButtons post={post}/>
     </article>
   ))
-
+  
   return (
     <section>
       <h2>Posts</h2>
