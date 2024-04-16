@@ -1,10 +1,9 @@
-import React from 'react'
-import { useSelector,useDispatch } from 'react-redux'
-import { selectAllPosts,getPostError,getPostStatus,fetchPosts } from './postsSlice'
-import PostAuthor from './PostAuthor'
-import TimeAgo from './TimeAgo'
-import ReactionButtons from './ReactionButtons'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectAllPosts, getPostError, getPostStatus, fetchPosts } from './postsSlice'
+
 import "./posts.css"
+import PostsExerpt from './PostsExerpt'
 
 export default function Posts() {
   // in this way if shape of the state changes we should change this line of code in every component that its used
@@ -12,23 +11,31 @@ export default function Posts() {
 
   // But it in this way if shape of the state changes we can easily make change in the related slice
   const posts = useSelector(selectAllPosts)
-  // sort the post by the time that are created
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+  const postsStatus = useSelector(getPostStatus)
+  const postsError = useSelector(getPostError)
+  const dispatch = useDispatch()
 
-  const renderPosts = orderedPosts.map(post => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.content.substring(0, 100)}</p>
-      <PostAuthor userId={post.userId} />
-      <TimeAgo timeStamp={post.date} />
-      <ReactionButtons post={post}/>
-    </article>
-  ))
-  
+  useEffect(() => {
+    if (postsStatus === 'idle') {
+      dispatch(fetchPosts())
+    }
+  }, [postsStatus, dispatch])
+  // sort the post by the time that are created
+
+  let content;
+  if (postsStatus === 'loading') {
+    content = <p>Loading...</p>
+  } else if (postsStatus === 'succeeded') {
+    const orderedPosts =  posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+    content = orderedPosts.map(post => <PostsExerpt key={post.id} post={post} />)
+  } else if (postsStatus === 'error') {
+    content = <p>{postsError}</p>
+  }
+
   return (
     <section>
       <h2>Posts</h2>
-      {renderPosts}
+      {content}
     </section>
 
   )

@@ -106,7 +106,7 @@ const postSlice = createSlice({
                 state.status = "succeeded"
                 let min = 1
                 const loadedPosts = action.payload.map(post => {
-                    post.data = sub(new Date(), { minutes: min++ }).toISOString()
+                    post.date = sub(new Date(), { minutes: min++ }).toISOString()
                     post.reactions = {
                         thumbsUp: 0,
                         wow: 0,
