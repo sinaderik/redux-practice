@@ -4,9 +4,12 @@ import ReactionButtons from './ReactionButtons'
 import PostAuthor from './PostAuthor'
 import { useSelector } from 'react-redux'
 import { selectPostById } from './postsSlice'
+import { useParams } from 'react-router-dom'
 
 export default function SinglePostPage() {
-    const post = useSelector(state => selectPostById(state, postId))
+    const { postId } = useParams()
+
+    const post = useSelector(state => selectPostById(state, Number(postId)))
     if (!post) {
         return (
             <section>
