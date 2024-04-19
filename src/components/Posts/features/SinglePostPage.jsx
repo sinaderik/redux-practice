@@ -4,7 +4,7 @@ import ReactionButtons from './ReactionButtons'
 import PostAuthor from './PostAuthor'
 import { useSelector } from 'react-redux'
 import { selectPostById } from './postsSlice'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function SinglePostPage() {
     const { postId } = useParams()
@@ -22,6 +22,7 @@ export default function SinglePostPage() {
         <article>
             <h3>{post.title}</h3>
             <p>{post.body}</p>
+            <Link to={`/post/edit/${post.id}`}>Edit post</Link>
             <PostAuthor userId={post.userId} />
             <TimeAgo timeStamp={post.date} />
             <ReactionButtons post={post} />
