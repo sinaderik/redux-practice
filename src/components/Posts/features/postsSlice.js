@@ -34,16 +34,26 @@ import { sub } from "date-fns"
 
 const POST_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-export const fetchPosts = createAsyncThunk('posts/fetchPost', async () => {
-    const response = await axios.get(POST_URL)
-    return response.data
-})
-
 const initialState = {
     posts: [],
     status: 'idle', // idle | laading | succeed | failed,
     error: null
 }
+
+export const fetchPosts = createAsyncThunk('posts/fetchPost', async () => {
+    const response = await axios.get(POST_URL)
+    return response.data
+})
+
+export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
+    const { id } = initialPost
+    try {
+        const response = await axios.put(`${POST_URL}/${id}`, initialPost)
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+})
 
 const postSlice = createSlice({
     name: "posts",
@@ -118,6 +128,18 @@ const postSlice = createSlice({
                 })
                 // add any fetch post to the array
                 state.posts = state.posts.concat(loadedPosts)
+            })
+            .addCase(updatePost.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log('Could not update the post')
+                    console.log(action.payload)
+                    return
+                }
+
+                const { id } = action.payload
+                action.payload.date = new Date().toISOString();
+                const posts = state.posts.filter(post => post.id !== id)
+                state.posts = [...posts, action.payload]
             })
     }
 })

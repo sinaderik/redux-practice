@@ -3,8 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+a{
+  color: inherit;
+}
 a:visited {
-  color: inherit; /* or specify the color you want for visited links */
+  color: white; /* or specify the color you want for visited links */
 }
 * {
   margin: 0;
@@ -21,6 +24,12 @@ html {
 body {
   min-height: 100vh;
   font-size: 1.5rem;
+}
+
+.post-detail{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 input,

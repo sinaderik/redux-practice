@@ -23,8 +23,10 @@ export default function SinglePostPage() {
             <h3>{post.title}</h3>
             <p>{post.body}</p>
             <Link to={`/post/edit/${post.id}`}>Edit post</Link>
-            <PostAuthor userId={post.userId} />
-            <TimeAgo timeStamp={post.date} />
+            <div className='post-detail'>
+                <PostAuthor userId={post.userId} />
+                <TimeAgo timeStamp={post.date} />
+            </div>
             <ReactionButtons post={post} />
         </article>
     )

@@ -10,11 +10,13 @@ export default function PostsExerpt({ post }) {
         <article>
             <h3>{post.title}</h3>
             <p>{post.body.substring(0, 100)}</p>
-            <p className='postCredit'>
+            <p>
                 <Link to={`post/${post.id}`}>View Post</Link>
-                <TimeAgo timeStamp={post.date} />
             </p>
-            <PostAuthor userId={post.userId} />
+            <div className='post-detail'>
+                <PostAuthor userId={post.userId} />
+                <TimeAgo timeStamp={post.date} />
+            </div>
             <ReactionButtons post={post} />
         </article>
     )
