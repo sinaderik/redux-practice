@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postAdded } from './postsSlice'
 import { selectAllUsers } from '../../Users/features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddPostForm() {
@@ -9,8 +10,10 @@ export default function AddPostForm() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [userId, setUserId] = useState('');
+    
     const users = useSelector(selectAllUsers)
     const dispatch = useDispatch();
+    const navigate=useNavigate()
 
     const canSave=Boolean(title) && Boolean(content) && Boolean(userId)
 
@@ -22,6 +25,7 @@ export default function AddPostForm() {
             setTitle('')
             setContent('')
             setUserId('')
+            navigate('/')
         }
     }
     const onAuthorChanged = e => setUserId(e.target.value)

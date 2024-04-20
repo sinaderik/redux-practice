@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectAllPosts, getPostError, getPostStatus, fetchPosts } from './postsSlice'
-
-import "./posts.css"
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectAllPosts, getPostError, getPostStatus } from './postsSlice'
 import PostsExerpt from './PostsExerpt'
+import "./posts.css"
+
 
 export default function Posts() {
   // in this way if shape of the state changes we should change this line of code in every component that its used
@@ -13,19 +13,12 @@ export default function Posts() {
   const posts = useSelector(selectAllPosts)
   const postsStatus = useSelector(getPostStatus)
   const postsError = useSelector(getPostError)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (postsStatus === 'idle') {
-      dispatch(fetchPosts())
-    }
-  }, [postsStatus, dispatch])
-  // sort the post by the time that are created
-
+  
   let content;
   if (postsStatus === 'loading') {
     content = <p>Loading...</p>
   } else if (postsStatus === 'succeeded') {
+    // sort the post by the time that are created
     const orderedPosts =  posts.slice().sort((a, b) => b.date.localeCompare(a.date))
     content = orderedPosts.map(post => <PostsExerpt key={post.id} post={post} />)
   } else if (postsStatus === 'error') {
