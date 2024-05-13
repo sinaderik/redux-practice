@@ -7,7 +7,9 @@ import { selectAllPosts, selectPostByUser } from '../Posts/features/postsSlice'
 export default function UserPage() {
     const { userId } = useParams()
     const user = useSelector(state => selectUserById(state, Number(userId)))
+    // use the selectPostByUser thats been created by createSlice for optimization purposes 
     const postForUser = useSelector(state => selectPostByUser(state, Number(userId)))
+
     // const postForUser = useSelector(state => {
     //     const allPosts = selectAllPosts(state)
     //     return allPosts.filter(post => post.userId === Number(userId))
